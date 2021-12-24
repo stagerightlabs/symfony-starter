@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+
+  apache:
+    build:
+      context: docker/apache
+    volumes:
+      - ./:/var/www:cached
+    ports:
+      - '80:80'
+    depends_on:
+      - fpm
+      - postgres
+
+  fpm:
+    build:
+      context: docker/fpm
+    depends_on:
+      - postgres
+    command: php-fpm
+    expose:
+      - "9000"
+    volumes:
+      - ./:/var/www:cached
+
+  cli:
+    build:
+      context: docker/cli
+    depends_on:
+      - postgres
+    user: www-data
+    command: ["sleep", "9223372036854775807"]
+    volumes:
+      - ./:/var/www:cached
+
+  postgres:
+    build:
+      context: docker/postgres
+    ports:
+      - '65000:5432'
+    environment:
+      - EDITOR=vim
+      - POSTGRES_PASSWORD=secret
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+      - ./docker/postgres/share:/var/lib/postgresql/share
+
+  # node:
+  #   build:
+  #     context: docker/node
+  #   volumes:
+  #     - ./:/var/www:cached
+  #   networks:
+  #       - fbng
+
+volumes:
+  pg-data:
