@@ -113,7 +113,7 @@ To access the postgres CLI (assuming the application database is called 'app'):
 ./ops.sh psql app
 ```
 
-[Take a look](ops.sh) at the file to see what other delegation commands are available.
+[Take a look](ops.sh) at the file to see what other delegation commands are available.  Note that in some cases we delegate using Docker 'exec' and sometimes we delegate using Docker 'run'. The difference is somewhat subtle: 'exec' is for performing operations within containers that are already running and 'run' is for spinning up new instances of containers to perform operations.
 
 This script becomes even more powerful if you set it up with an alias in your host CLI.Here is an example using bash:
 
