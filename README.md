@@ -4,7 +4,7 @@ This repo provides a jumping off point for creating a new Symfony 6 application 
 
 ## Instructions
 
-To create a new application clone this repo locally and then wipe the git history:
+To create a new application clone this repo locally and then wipe the git history. You will need to do this from the project root:
 
 ```
 rm -fr .git
@@ -17,7 +17,7 @@ Your new application now has its own separate git history and can be pushed to a
 
 ### Up and Running
 
-This project provides docker container definitions that can be used for local development and customized to fit your needs. You will need to have both [Docker](https://hub.docker.com/editions/community/docker-ce-desktop-windows/) and [Docker Compose](https://docs.docker.com/compose/install/) installed on your development machine. The free 'community edition' of Docker will suffice for our needs. If you are using Windows you may need to clone this repo into a WSL folder, depending on which version of the Windows Docker client you are using.
+This project provides docker container definitions that can be used for local development and customized to fit your needs. You will need to have both [Docker](https://hub.docker.com/editions/community/docker-ce-desktop-windows/) and [Docker Compose](https://docs.docker.com/compose/install/) installed on your development machine. The free 'community edition' of Docker will suffice for our needs. If you are using Windows you may need to clone this repo into a WSL folder depending on which version of the Windows Docker client you are using.
 
 Once you have Docker installed you can now build the images on your host machine. Use your CLI to navigate to the project root and then run this command:
 
@@ -33,7 +33,7 @@ To start the service containers, run this command:
 docker-compose up -d
 ```
 
-The `-d` flag will start the services as daemon processes, which will allow you to close your CLI without also terminating the services.
+The `-d` flag will start the services as daemon process which will allow you to close your CLI without also terminating the services.
 
 To stop all of the services run this command:
 
@@ -63,21 +63,21 @@ The service architecture in this project ships with Apache to handle web traffic
 sudo bash -c "echo '127.0.0.1 symfony-starter.test' >> /etc/hosts"
 ```
 
-To customize this domain for your project you will need to update the configuration files in the `docker/apache` folder. (Use grep to find all the locations where the domain is referenced.) Note: After adjusting the configuration files you will need to stop the running services, rebuild the containers and then restart the services before you will see those changes go into effect.
+To customize this domain for your project you will need to update the configuration files in the `docker/apache` folder. (Use grep to find all the locations where the domain is referenced.) Note: After adjusting the configuration files you will need to stop the running services, rebuild the containers, and then restart the services before you will see those changes go into effect.
 
-Port 80 is the default used for web traffic. Your host machine can only have one program or service listening to port 80 at a time, so attempting to spin up this development environment will fail if you have some other program on your machine using port 80. If you would like to spin up multiple applications on your host machine that will need to connect to each other you can do this by assigning each of them a different port number. This is done in the `docker-compose.yml` service definition. Under the 'ports' section you will see the definition '80:80'. The first is your host machine port and the second is the container port. To direct web traffic to port 10000, you would specify it like this: '10000:80'. You can then access the running service at the same local domain as long as you add in the port number:
+Port 80 is the default used for web traffic. Your host machine can only have one program or service listening to port 80 at a time so attempting to spin up this development environment will fail if you have some other program on your machine using port 80. If you would like to spin up multiple applications on your host machine that will want to connect to each other you will need to assign each of them a different port number. This is done in the `docker-compose.yml` service definition. Under the 'ports' section you will see the definition '80:80'. The first is your host machine port and the second is the container port. To direct application web traffic to port 10000 you would specify it like this: '10000:80'. You can then access the running service at the same local domain as long as you add in the port number:
 
 ```
 http://symfony-starter.test:10000
 ```
 
-This project does not yet ship with SSL enabled locally, but that may be added in the future. You are, however, free to set this up in your own project.
+This project does not yet ship with SSL enabled locally but that may be added in the future. You are, however, free to set this up in your own project.
 
 ## Defined Services
 
-This project has defined a handful of services that can be used to do local development work on your Symfony application. However, the only limit here is your imagination. You can add and remove services as needed to support the work you are doing on your application.
+This project comes with a handful of pre-defined services that can be used to do local development work on your Symfony application. However, the only limit here is your imagination. You can add and remove services as needed to support the growth of your application.
 
-Most people who make heavy use of Docker prefer to assign a new container to each separate task that you might need for development. It is possible to combine multiple tasks within the same container, but this is not considered "the docker way (tm)." A common practice is to use a single image definition as the basis for multiple similar services, such as we have done here with the node containers.
+Most people who make heavy use of Docker prefer to assign a new container to each separate task that you might need for development. It is possible to combine multiple tasks within the same container but this is not considered "the docker way (tm)." A common practice is to use a single image definition as the basis for multiple similar services, such as we have done here with the node containers.
 
 The beauty of Docker Compose is that it simplifies the orchestration of multiple services that are all used for the same project. When you use Docker Compose to spin up a set of services an internal network is automatically created. This allows each of the services defined in the `docker-compose.yml` file to talk to each other over a dedicated private network.
 
