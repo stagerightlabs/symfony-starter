@@ -151,3 +151,15 @@ You can also call php-cs-fixer directly:
 ```
 
 The formatting configuration can be adjusted in the `.php-cs-fixer.php` or `.php-cs-fixer.dist.php` files.
+
+## Localization and Translation
+
+This project makes use of Symfony's language string tools to easily translate rendered templates into different languages based on URL path, per recommended best practice. The first parameter in every route will be a `_locale` string that informs Symfony which language strings to use when performing translations.
+
+The language strings themselves are PHP files that follow the unicode ICU message format. Symfony also supports YAML and XML string files, but only YAML and PHP allow for structured nesting.
+
+See more here:
+
+- [Translations](https://symfony.com/doc/current/translation.html)
+- [How to Work with the User's Locale](https://symfony.com/doc/current/translation/locale.html#translation-locale-url)
+- [The ICU Message Format](https://symfony.com/doc/current/translation/message_format.html)

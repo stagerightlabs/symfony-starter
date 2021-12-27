@@ -9,17 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LuckyController extends AbstractController
 {
-    #[Route('/lucky', name: 'lucky')]
+    #[Route('/{_locale}/lucky', name: 'lucky')]
     public function index(LoggerInterface $logger): Response
     {
-        $number = random_int(0, 100);
-
-        return new Response(
-            "<html><body>Lucky number: {$number}</body></html>"
-        );
-
-        // return $this->render('lucky/index.html.twig', [
-        //     'controller_name' => 'LuckyController',
-        // ]);
+        return $this->render('lucky/index.html.twig', [
+            'number' => random_int(0, 100),
+        ]);
     }
 }
