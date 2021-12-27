@@ -18,6 +18,12 @@ if [ $# -gt 0 ];then
             cli \
             php bin/console "$@"
 
+    # If the first argument is "server:dump" start a server:dump session with the FPM service.
+    elif [ "$1" == "server:dump" ]; then
+        $COMPOSE exec \
+            fpm \
+            php bin/console server:dump
+
     # If the first argument is "composer" pass the command through to composer
     elif [ "$1" == "composer" ]; then
         shift 1
