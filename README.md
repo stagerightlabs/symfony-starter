@@ -1,6 +1,6 @@
 # Symfony 6 Starter
 
-This repo provides a jumping off point for creating a new Symfony 6 application using docker services to support local development.
+This repo provides a jumping off point for creating a web application using Symfony 6 and Docker.
 
 ## Instructions
 
