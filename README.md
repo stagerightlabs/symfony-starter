@@ -91,14 +91,20 @@ Here is a brief rundown of the services defined in this project:
 
 - `postgres`: A container running the Postgres relational database. The underlying data in the database is persisted to your host machine using a docker volume. This means that you will not lose any data when shutting down the docker services. To reset the database you will need to wipe the volume. Use `docker volume ls` to find the name of the volume, and then `docker volume rm [name]` to remove it.
 
-### Ops Helper Script
+### Local Ops Helper Script
 
-Docker Compose provides a lot of great benefits, but there are a few downsides. Running commands in containers requires a lot more typing, and you have to remember what each service container is responsible for. This can sometimes be a damper on productive work. To simplify CLI interactions with this application a bash script has been provided that will automatically delegate commands to their appropriate service containers. The idea for this script comes from Chris Fidao and his [Shipping Docker](https://serversforhackers.com/shipping-docker) course.  It provides a shorthand for interacting with the various docker services in use. For example:
+Docker Compose provides a lot of great benefits but there are a few downsides. Running commands in containers requires a lot more typing and you have to remember what each service container is responsible for. This can sometimes be a damper on productive work. To simplify CLI interactions with this application a bash script has been provided that will automatically delegate commands to their appropriate service containers. The idea for this script comes from Chris Fidao and his [Shipping Docker](https://serversforhackers.com/shipping-docker) course.It provides a shorthand for interacting with the various docker services in use. For example:
 
 To run a composer command:
 
 ```
 ./ops.sh composer update
+```
+
+To run a console command:
+
+```
+./ops.sh console debug:router
 ```
 
 To access the postgres CLI (assuming the application database is called 'app'):
@@ -109,13 +115,13 @@ To access the postgres CLI (assuming the application database is called 'app'):
 
 [Take a look](ops.sh) at the file to see what other delegation commands are available.
 
-This script becomes even more powerful if you set it up with an alias in your host CLI.  Here is an example using bash:
+This script becomes even more powerful if you set it up with an alias in your host CLI.Here is an example using bash:
 
 ```bash
 ss_ops() {
-    cd /absolute/path/to/project/root
-    ./ops.sh ${*:-ps}
-    cd $OLDPWD
+cd /absolute/path/to/project/root
+./ops.sh ${*:-ps}
+cd $OLDPWD
 }
 alias ss=ss_ops
 ```
@@ -124,6 +130,7 @@ Add this to your `.bashrc` file (or some other equivalent) and you now have a co
 
 ```
 ss composer update
+ss console debug:router
 ss psql app
 ```
 
