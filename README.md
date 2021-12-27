@@ -4,7 +4,7 @@ This repo provides a jumping off point for creating a web application using Symf
 
 ## Instructions
 
-To create a new application clone this repo locally and then wipe the git history. You will need to do this from the project root:
+To create a new application clone this repo locally and then wipe the git history. From the project root:
 
 ```
 rm -fr .git
@@ -55,7 +55,7 @@ docker-compose logs
 
 You can use a `-f` flag to keep the log streams open and view new entries in real time. You can also specify a service name to see only the logs for that service.
 
-## Domain and Port Considerations
+### Domain and Port Considerations
 
 The service architecture in this project ships with Apache to handle web traffic requests. By default it is set up to serve content on the `symfony-starter.test` domain. In order to access this site on your host machine you will need to update your hosts file:
 
@@ -73,7 +73,7 @@ http://symfony-starter.test:10000
 
 This project does not yet ship with SSL enabled locally but that may be added in the future. You are, however, free to set this up in your own project.
 
-## Defined Services
+### Defined Services
 
 This project comes with a handful of pre-defined services that can be used to do local development work on your Symfony application. However, the only limit here is your imagination. You can add and remove services as needed to support the growth of your application.
 
@@ -89,4 +89,42 @@ Here is a brief rundown of the services defined in this project:
 
 - `cli`: A PHP container for running Symfony console commands.
 
-- `postgres`: A container running the Postgres relational database. The underlying data in the database is persisted to your host machine using a docker volume.  This means that you will not lose any data when shutting down the docker services.  To reset the database you will need to wipe the volume.  Use `docker volume ls` to find the name of the volume, and then `docker volume rm [name]` to remove it.
+- `postgres`: A container running the Postgres relational database. The underlying data in the database is persisted to your host machine using a docker volume. This means that you will not lose any data when shutting down the docker services. To reset the database you will need to wipe the volume. Use `docker volume ls` to find the name of the volume, and then `docker volume rm [name]` to remove it.
+
+### Ops Helper Script
+
+Docker Compose provides a lot of great benefits, but there are a few downsides. Running commands in containers requires a lot more typing, and you have to remember what each service container is responsible for. This can sometimes be a damper on productive work. To simplify CLI interactions with this application a bash script has been provided that will automatically delegate commands to their appropriate service containers. The idea for this script comes from Chris Fidao and his [Shipping Docker](https://serversforhackers.com/shipping-docker) course.  It provides a shorthand for interacting with the various docker services in use. For example:
+
+To run a composer command:
+
+```
+./ops.sh composer update
+```
+
+To access the postgres CLI (assuming the application database is called 'app'):
+
+```
+./ops.sh psql app
+```
+
+[Take a look](ops.sh) at the file to see what other delegation commands are available.
+
+This script becomes even more powerful if you set it up with an alias in your host CLI.  Here is an example using bash:
+
+```bash
+ss_ops() {
+    cd /absolute/path/to/project/root
+    ./ops.sh ${*:-ps}
+    cd $OLDPWD
+}
+alias ss=ss_ops
+```
+
+Add this to your `.bashrc` file (or some other equivalent) and you now have a convenient shorthand for interacting with the application:
+
+```
+ss composer update
+ss psql app
+```
+
+By using an absolute path in the alias definition we can now interact with this application from anywhere on our host machine not just the project root.
