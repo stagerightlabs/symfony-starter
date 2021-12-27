@@ -135,3 +135,19 @@ ss psql app
 ```
 
 By using an absolute path in the alias definition we can now interact with this application from anywhere on our host machine not just the project root.
+
+## Code Formatting
+
+This project uses [`friendsofphp/php-cs-fixer`](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to automate code formatting.  It is configured to use the [Symfony](https://symfony.com/doc/current/contributing/code/standards.html) formatting standard but many other standards are available.  To format the code in the `src` directory run this command:
+
+```
+composer format
+```
+
+You can also call php-cs-fixer directly:
+
+```
+./vendor/bin/php-cs-fixer fix
+```
+
+The formatting configuration can be adjusted in the `.php-cs-fixer.php` or `.php-cs-fixer.dist.php` files.
