@@ -46,13 +46,19 @@ services:
       - pg-data:/var/lib/postgresql/data
       - ./docker/postgres/share:/var/lib/postgresql/share
 
-  # node:
-  #   build:
-  #     context: docker/node
-  #   volumes:
-  #     - ./:/var/www:cached
-  #   networks:
-  #       - fbng
+  node:
+    build:
+      context: docker/node
+    volumes:
+      - ./:/var/www:cached
+
+  tailwind:
+    build:
+      context: docker/node
+    volumes:
+      - ./:/var/www:cached
+    command: ['npm', 'run', 'watch:css']
+    tty: true # https://github.com/postcss/postcss-cli/issues/370
 
 volumes:
   pg-data:
