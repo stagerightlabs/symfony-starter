@@ -60,5 +60,13 @@ services:
     command: ['npm', 'run', 'watch:css']
     tty: true # https://github.com/postcss/postcss-cli/issues/370
 
+  esbuild:
+    build:
+      context: docker/node
+    volumes:
+      - ./:/var/www:cached
+    command: ['npm', 'run', 'watch:js']
+    tty: true # https://github.com/postcss/postcss-cli/issues/370
+
 volumes:
   pg-data:

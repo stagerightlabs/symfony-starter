@@ -189,3 +189,13 @@ Using composition instead of traditional cascading inheritance makes it much eas
 In this project Tailwind has been configured to analyze the template folder and automatically generate a css file that only includes the classes that are actually in use. There is a docker service running a file watcher so this compilation process happens entirely behind the scenes. You should be able to add a class in a template file, save it and then see the change in the browser after you refresh.
 
 Tailwind uses [PostCSS](https://postcss.org/) under the hood, which opens up the possibility for including other cutting edge CSS features in this project as well. There are numerous PostCSS plugins available that bring a wide array of features to the table.
+
+The compiled CSS file will not be tracked by git.  It will need to be regenerated on each deployment.
+
+## Javascript
+
+This project uses [esbuild](https://esbuild.github.io/) to compile javascript assets. It is smaller and faster than webpack or other similar tools. It also handles modern javascript features very well and it will let you control what level of ECMAScript compatibility you want in your final output file. A docker service has been set up to monitor the `assets/js/app.js` file and recompile it whenever changes have been made. This file is the main entrypoint for Javascript in this project; any additional Javascript added to the project will need to be loaded into that file. It is also possible to set up additional entry points that can be compiled into separate javascript files.
+
+This project also comes with [Alpine.js](https://alpinejs.dev/) pre-installed. Alpine.js is an excellent modern replacement for JQuery that embraces standard browser APIs and modern ECMAScript features. There is a healthy plugin system available as well. By design Alpine components are defined directly in HTML, but it is also possible to create them with separate javascript files and then load them into the HTML when instantiating a component.
+
+The compiled JS file will not be tracked by git.  It will need to be regenerated on each deployment.
