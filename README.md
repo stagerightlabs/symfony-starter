@@ -55,6 +55,22 @@ docker-compose logs
 
 You can use a `-f` flag to keep the log streams open and view new entries in real time. You can also specify a service name to see only the logs for that service.
 
+### Installing Dependencies
+
+You will need to install both PHP and Node dependencies locally before you can spin up the application.
+
+To install the PHP dependencies:
+
+```
+docker-compose run --rm cli composer install
+```
+
+To install the node dependencies:
+
+```
+docker-compose run --rm node npm install
+```
+
 ### Domain and Port Considerations
 
 The service architecture in this project ships with Apache to handle web traffic requests. By default it is set up to serve content on the `symfony-starter.test` domain. In order to access this site on your host machine you will need to update your hosts file:

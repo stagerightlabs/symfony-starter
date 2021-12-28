@@ -1,3 +1,7 @@
+###> application ###
+/node_modules/
+/public/css/app.css
+###< application ###
 
 ###> symfony/framework-bundle ###
 /.env.local
