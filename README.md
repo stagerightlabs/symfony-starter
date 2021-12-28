@@ -199,3 +199,13 @@ This project uses [esbuild](https://esbuild.github.io/) to compile javascript as
 This project also comes with [Alpine.js](https://alpinejs.dev/) pre-installed. Alpine.js is an excellent modern replacement for JQuery that embraces standard browser APIs and modern ECMAScript features. There is a healthy plugin system available as well. By design Alpine components are defined directly in HTML, but it is also possible to create them with separate javascript files and then load them into the HTML when instantiating a component.
 
 The compiled JS file will not be tracked by git.  It will need to be regenerated on each deployment.
+
+Javascript code formatting is configured via [standard.js](standardjs.com).  You can format all of the javascript files in the project by running
+
+```
+docker-compose run --rm node npm run format
+# or
+./ops.sh npm run format
+```
+
+It would be possible to set up a docker service for this, but it is easier to [configure your IDE](https://standardjs.com/#are-there-text-editor-plugins) to perform the standard.js formatting automatically.
