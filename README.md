@@ -179,3 +179,13 @@ See more here:
 - [Translations](https://symfony.com/doc/current/translation.html)
 - [How to Work with the User's Locale](https://symfony.com/doc/current/translation/locale.html#translation-locale-url)
 - [The ICU Message Format](https://symfony.com/doc/current/translation/message_format.html)
+
+## CSS and Design
+
+This project is configured to use [Tailwind CSS](https://tailwindcss.com/) for page styling and design. Tailwind is a 'utility' framework; it does not offer much in the way of default styles. Instead it provides utility classes that you use to compose the look and feel of your design.  It is fully customizable as well; you can define the parameters of your site design in the tailwind config file and then use the generated CSS classes as a consistent design system across the entire site.
+
+Using composition instead of traditional cascading inheritance makes it much easier to maintain CSS over the long term. When used in combination with embeddable twig components this pattern can be very powerful.
+
+In this project Tailwind has been configured to analyze the template folder and automatically generate a css file that only includes the classes that are actually in use. There is a docker service running a file watcher so this compilation process happens entirely behind the scenes. You should be able to add a class in a template file, save it and then see the change in the browser after you refresh.
+
+Tailwind uses [PostCSS](https://postcss.org/) under the hood, which opens up the possibility for including other cutting edge CSS features in this project as well. There are numerous PostCSS plugins available that bring a wide array of features to the table.
