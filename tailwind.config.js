@@ -1,9 +1,9 @@
 module.exports = {
   content: [
-    "./templates/**/*.{twig,html}"
+    './templates/**/*.{twig,html}'
   ],
   theme: {
-    extend: {},
+    extend: {}
   },
-  plugins: [],
+  plugins: []
 }
