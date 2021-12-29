@@ -209,3 +209,8 @@ docker-compose run --rm node npm run format
 ```
 
 It would be possible to set up a docker service for this, but it is easier to [configure your IDE](https://standardjs.com/#are-there-text-editor-plugins) to perform the standard.js formatting automatically.
+
+
+## Browser Cache Busting
+
+Browser cache busting for generated assets has been implemented via an 'asset nonce' environment variable.  Running the `asset:nonce` command on deployment will generate a new nonce value and force browsers to download the latest version of the asset files.
