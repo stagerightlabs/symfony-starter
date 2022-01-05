@@ -264,6 +264,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "stagerightlabs/actions": {
+        "version": "0.00.30"
+    },
     "symfony/asset": {
         "version": "6.1.x-dev"
     },
