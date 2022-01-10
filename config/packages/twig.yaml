@@ -2,6 +2,7 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
         asset_nonce: '%env(resolve:ASSET_NONCE)%'
+    form_themes: ['form/tailwind_theme.html.twig']
 
 when@test:
     twig:
