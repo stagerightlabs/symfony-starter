@@ -1,6 +1,6 @@
 FROM node:17
 
-LABEL maintainer="Ryan C. Durham <ryan.durham@firebrandtech.com>"
+LABEL maintainer="Ryan C. Durham <ryan@stagerightlabs.com>"
 
 USER node
 

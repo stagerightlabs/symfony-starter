@@ -1,6 +1,6 @@
 FROM php:8.1-cli
 
-LABEL maintainer="Ryan C. Durham <ryan.durham@firebrandtech.com>"
+LABEL maintainer="Ryan C. Durham <ryan@stagerightlabs.com>"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG UID=1000

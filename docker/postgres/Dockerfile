@@ -1,6 +1,6 @@
 FROM postgres:14
 
-LABEL authors="Ryan Durham <ryan.durham@firebrandtech.com>"
+LABEL authors="Ryan Durham <ryan@stagerightlabs.com>"
 
 # Set up the www-data user as UID 1000
 ARG NAME=www-data

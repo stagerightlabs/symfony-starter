@@ -1,6 +1,6 @@
 FROM httpd:2.4
 
-LABEL maintainer="Ryan C. Durham <ryan.durham@firebrandtech.com>"
+LABEL maintainer="Ryan C. Durham <ryan@stagerightlabs.com>"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
