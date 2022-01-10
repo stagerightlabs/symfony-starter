@@ -14,7 +14,7 @@ return [
             'remember_me' => 'Remember Me',
             'title' => 'Please Sign In',
             'sign_in' => 'Sign In',
-        ]
+        ],
     ],
     'lucky' => [
         'title' => 'Lucky Number',

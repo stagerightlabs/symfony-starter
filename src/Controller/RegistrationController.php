@@ -20,14 +20,14 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $action = $action->run([
                 'email' => $form->get('email')->getData(),
-                'password' => $form->get('plainPassword')->getData()
+                'password' => $form->get('plainPassword')->getData(),
             ]);
 
             if ($action->failed()) {
                 $this->addFlash('error', $action->getMessage());
+
                 return $this->redirectToRoute('register');
             }
 
