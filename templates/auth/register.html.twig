@@ -1,0 +1,19 @@
+{% extends 'layout/auth.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block content %}
+	<h1 class="bg-gradient-to-br from-rose-500 to-sky-500 text-xl font-semibold text-transparent bg-clip-text mb-4">{{ 'forms.register.title'|trans }}</h1>
+	{{ form_start(form) }}
+	{{ form_widget(form._token) }}
+	{{ form_row(form.email) }}
+	{{ form_row(form.plainPassword) }}
+	<div class="flex justify-between">
+		<button type="submit" class="btn btn-primary">{{ 'forms.register.register'|trans }}</button>
+		<a href="{{ path('login') }}" type="submit" class="btn btn-secondary">
+			{{ 'forms.login.sign_in'|trans }}
+		</a>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}

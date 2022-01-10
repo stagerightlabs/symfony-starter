@@ -1,0 +1,52 @@
+{% extends 'layout/auth.html.twig' %}
+
+{% block title %}Log in!
+{% endblock %}
+
+{% block content %}
+	<h1 class="bg-gradient-to-br from-rose-500 to-sky-500 text-xl font-semibold text-transparent bg-clip-text mb-4">{{ 'forms.login.title'|trans }}</h1>
+	<form method="post">
+
+		{% if app.user %}
+			<div class="border border-yellow-400 bg-yellow-200 text-yellow-600 rounded w-full p-2 mb-4 text-sm flex items-center">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 flex-shrink-0" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+				</svg>
+				<p class="text-center">
+					There is an active session.
+					<a href="{{ path('logout') }}" class="underline">Logout?</a>
+				</p>
+			</div>
+		{% endif %}
+
+		<div class="mb-4">
+			<label for="inputEmail" class="block text-slate-600">{{ 'forms.login.email'|trans }}</label>
+			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="w-full h-12 rounded-lg px-4 text-lg border-slate-400 focus:ring-sky-500" autocomplete="email" required autofocus>
+		</div>
+		<div class="mb-4">
+			<label for="inputPassword" class="block text-slate-600">{{ 'forms.login.password'|trans }}</label>
+			<input type="password" name="password" id="inputPassword" class="w-full h-12 rounded-lg px-4 text-lg border-slate-400 focus:ring-sky-500" autocomplete="current-password" required>
+		</div>
+
+		<div class="checkbox mb-4">
+			<label class="text-slate-600">
+				<input type="checkbox" name="_remember_me">
+				{{ 'forms.login.remember_me'|trans }}
+			</label>
+		</div>
+
+		<div class="flex justify-between">
+			<button type="submit" class="btn btn-primary">
+				{{ 'forms.login.sign_in'|trans }}
+			</button>
+			<a href="{{ path('register') }}" type="submit" class="btn btn-secondary">
+				{{ 'forms.register.register'|trans }}
+			</a>
+		</div>
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
+	</form>
+{% endblock %}
