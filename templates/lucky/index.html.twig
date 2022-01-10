@@ -1,17 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout/app.html.twig' %}
 
-{% block title %}{% trans %}lucky.title{% endtrans %}{% endblock %}
+{% block title %}
+	{% trans %}lucky.title{% endtrans %}
+{% endblock %}
 
-{% block body %}
-
-<div class="example-wrapper">
-    <div class="bg-teal-50 absolute inset-0 flex items-center justify-center">
-      <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-          <div class="px-6 py-4">
-              <h1 class="font-bold text-2xl mb-2 text-gray-700">{{ 'lucky.title'|trans }}</h1>
-              <p class="text-gray-600 text-base">{{ 'lucky.number'|trans({'number': number}) }}.</p>
-          </div>
-      </div>
-    </div>
-</div>
+{% block content %}
+	<div class="container mx-auto">
+		<div class="bg-white border-2 border-slate-500 rounded mx-2 sm:mx-0">
+			<div class="bg-slate-500 px-2 py-1">
+				<h1 class="font-bold text-xl mb-2 text-slate-50">{{ 'lucky.title'|trans }}</h1>
+			</div>
+			<div class="p-4">
+				<p class="text-gray-600 text-base">{{ 'lucky.number'|trans({'number': number}) }}.</p>
+			</div>
+		</div>
+	</div>
 {% endblock %}
