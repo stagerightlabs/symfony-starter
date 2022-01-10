@@ -12,6 +12,7 @@ class LuckyNumberAction extends Action
      * Handle the action.
      *
      * @param Action|array $input
+     *
      * @return self
      */
     public function handle($input = [])
