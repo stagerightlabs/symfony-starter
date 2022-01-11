@@ -20,4 +20,9 @@ return [
         'title' => 'Lucky Number',
         'number' => 'Your lucky number is {number}',
     ],
+    'symfony_starter' => 'Symfony Starter',
+    'logout' => 'Log Out',
+    'page2' => 'Page 2',
+    'page3' => 'Page 3',
+    'page4' => 'Page 4',
 ];
