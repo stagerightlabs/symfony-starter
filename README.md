@@ -152,6 +152,10 @@ ss psql app
 
 By using an absolute path in the alias definition we can now interact with this application from anywhere on our host machine not just the project root.
 
+## Action Classes
+
+In an effort to pursue both skinny entities and skinny controllers I have set up 'Action' classes to encapsulate business logic. They serve a similar purpose as a traditional service class, except that the intention is to limit each action class to a single job. This project includes the `stagerightlabs/actions` package which provides an base action class with some helper methods.  This allows the action class to perform business logic and also serve as a DTO for the outcome of the action.  More info here: https://github.com/stagerightlabs/actions.
+
 ## Code Formatting
 
 This project uses [`friendsofphp/php-cs-fixer`](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to automate code formatting.  It is configured to use the [Symfony](https://symfony.com/doc/current/contributing/code/standards.html) formatting standard but many other standards are available.  To format the code in the `src` directory run this command:
