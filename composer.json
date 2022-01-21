@@ -47,6 +47,7 @@
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.7",
+        "fakerphp/faker": "^1.17",
         "friendsofphp/php-cs-fixer": "^3.4",
         "phpstan/phpstan": "^1.2",
         "phpunit/phpunit": "^9.5",

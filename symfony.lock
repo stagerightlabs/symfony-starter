@@ -106,6 +106,9 @@
     "egulias/email-validator": {
         "version": "3.1.2"
     },
+    "fakerphp/faker": {
+        "version": "v1.17.0"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "3.4",
         "recipe": {
