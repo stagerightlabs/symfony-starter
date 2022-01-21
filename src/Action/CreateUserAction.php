@@ -6,6 +6,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use StageRightLabs\Actions\Action;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CreateUserAction extends Action
 {
@@ -16,12 +17,17 @@ class CreateUserAction extends Action
     protected UserPasswordHasherInterface $hasher;
     protected EntityManagerInterface $entityManager;
 
+    /**
+     * Instantiate the action.
+     */
     public function __construct(
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $hasher,
+        ValidatorInterface $validator,
     ) {
         $this->entityManager = $entityManager;
         $this->hasher = $hasher;
+        $this->validator = $validator;
     }
 
     /**
@@ -36,7 +42,13 @@ class CreateUserAction extends Action
         $this->user = new User();
         $this->user->setEmail($input['email']);
 
-        // encode the plain password
+        // Ensure the user does not already exist.
+        $errors = $this->validator->validate($this->user);
+        if ($errors->count()) {
+            return $this->fail($errors[0]->getMessage());
+        }
+
+        // Encode the plain password
         $this->user->setPassword(
             $this->hasher->hashPassword(
                 $this->user,
