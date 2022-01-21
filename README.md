@@ -218,3 +218,23 @@ It would be possible to set up a docker service for this, but it is easier to [c
 ## Browser Cache Busting
 
 Browser cache busting for generated assets has been implemented via an 'asset nonce' environment variable.  Running the `asset:nonce` command on deployment will generate a new nonce value and force browsers to download the latest version of the asset files.
+
+## Tests
+
+The tests can be triggered via PHPUnit:
+
+```
+./vendor/bin/phpunit
+```
+
+or, if you are using the ops helper script:
+
+```
+./ops.sh test
+```
+
+This repo uses the [DAMADoctrineTestBundle](https://github.com/dmaicher/doctrine-test-bundle) to run each test in separate database transactions, which should help reduce the time it takes to run the whole test suite.
+
+Test fixtures are managed via a custom fixture factory partially inspired by [zenstruck/foundry](https://github.com/zenstruck/foundry). This allows each test to define the database context it needs.
+
+The test database is recreated each time the test suite is run. The new database is created from the existing migrations rather than from Doctrine's `schema:create` tool.  This limits the opportunity for drift between the production database and the testing database.  This could also be set up to load the schema from a SQL file rather than migrations depending on the project needs.
