@@ -28,9 +28,10 @@ class AssetNonceCommand extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
+        $environment = $_ENV['APP_ENV'];
         $io = new SymfonyStyle($input, $output);
         $key = $input->getArgument('key');
-        $files = ['.env.prod.local', '.env.prod', '.env.local', '.env'];
+        $files = [".env.{$environment}.local", ".env.{$environment}", ".env.local", ".env"];
 
         // Find the appropriate .env file
         $path = null;
@@ -64,7 +65,7 @@ class AssetNonceCommand extends Command
         // Write the new asset version value to the .env file
         file_put_contents($path, preg_replace(
             $this->keyReplacementPattern($key, $_ENV[$key]),
-            $key.'='.$nonce,
+            $key . '=' . $nonce,
             $content
         ));
 
@@ -81,7 +82,7 @@ class AssetNonceCommand extends Command
      */
     protected function keyReplacementPattern($key, $current): string
     {
-        $escaped = preg_quote('='.$current);
+        $escaped = preg_quote('=' . $current);
 
         return "/^{$key}{$escaped}/m";
     }
