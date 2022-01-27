@@ -2,15 +2,15 @@
 
 namespace App\Tests\Actions;
 
-use App\Entity\User;
-use App\Tests\KernelTestCase;
 use App\Action\CreateUserAction;
+use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Tests\KernelTestCase;
 
 class CreateUserActionTest extends KernelTestCase
 {
     /** @test */
-    public function it_creates_a_user()
+    public function itCreatesAUser()
     {
         $action = $this->resolve(CreateUserAction::class);
         $userRepository = $this->resolve(UserRepository::class);
@@ -26,7 +26,7 @@ class CreateUserActionTest extends KernelTestCase
     }
 
     /** @test */
-    public function it_does_not_create_duplicate_users()
+    public function itDoesNotCreateDuplicateUsers()
     {
         $this->factory(User::class)->create([
             'email' => 'test@test.com',

@@ -2,8 +2,8 @@
 
 namespace App\Tests;
 
-use Symfony\Bundle\FrameworkBundle\Test\TestContainer;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase as SymfonyKernelTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\TestContainer;
 
 class KernelTestCase extends SymfonyKernelTestCase
 {

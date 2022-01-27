@@ -14,6 +14,7 @@ trait TestUtilities
      * Resolve a service from the container.
      *
      * @param string $key
+     *
      * @return object|null
      */
     public function resolve($key)
@@ -25,6 +26,7 @@ trait TestUtilities
      * Build an entity factory.
      *
      * @param string $entity
+     *
      * @return \Eoa\Tests\Factory\EntityFactory
      */
     public function factory($entity)

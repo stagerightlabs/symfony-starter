@@ -6,7 +6,6 @@ use App\Entity\User;
 
 class UserFactory extends EntityFactory
 {
-
     public function getDefinition(): array
     {
         return [

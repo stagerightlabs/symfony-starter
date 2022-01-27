@@ -2,15 +2,15 @@
 
 namespace App\Tests\Factory;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Id\AssignedGenerator;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 abstract class EntityFactory
 {
-    const FACTORY_NAMESPACE = 'App\\Tests\\Factory\\';
+    public const FACTORY_NAMESPACE = 'App\\Tests\\Factory\\';
 
     /**
      * @var array
@@ -40,20 +40,17 @@ abstract class EntityFactory
     /**
      * Should the factory execute hooks when creating entities?
      *
-     * @var boolean
+     * @var bool
      */
     protected $allowHooks = true;
 
     /**
      * Should the new entity be instantiated without its constructor?
      *
-     * @var boolean
+     * @var bool
      */
     protected $withoutConstructor = false;
 
-    /**
-     * @param EntityManagerInterface $entityManager
-     */
     protected function __construct(EntityManagerInterface $entityManager)
     {
         $this->faker = \Faker\Factory::create();
@@ -64,23 +61,17 @@ abstract class EntityFactory
 
     /**
      * Define the default attribute values for this entity.
-     *
-     * @return array
      */
-    abstract function getDefinition(): array;
+    abstract public function getDefinition(): array;
 
     /**
      * Retrieve the name of the class to be instantiated.
-     *
-     * @return string
      */
-    abstract function getClass(): string;
+    abstract public function getClass(): string;
 
     /**
      * Create a factory instance for an entity type.
      *
-     * @param string $class
-     * @param EntityManagerInterface $entityManager
      * @return static
      */
     public static function factoryForEntity(string $class, EntityManagerInterface $entityManager)
@@ -94,21 +85,19 @@ abstract class EntityFactory
 
     /**
      * Get the factory name for the given entity.
-     *
-     * @param string $name
-     * @return string
      */
     public static function resolveFactoryName(string $name): string
     {
         $shortName = (new \ReflectionClass($name))->getShortName();
 
-        return self::FACTORY_NAMESPACE . $shortName . 'Factory';
+        return self::FACTORY_NAMESPACE.$shortName.'Factory';
     }
 
     /**
      * Add values to the factory attribute state.
      *
      * @param array $attributes
+     *
      * @return self
      */
     public function state($attributes = [])
@@ -122,6 +111,7 @@ abstract class EntityFactory
      * Create a new entity and persist it to the database.
      *
      * @param array $attributes
+     *
      * @return mixed
      */
     public function create($attributes = [])
@@ -131,7 +121,7 @@ abstract class EntityFactory
         // Enable custom ID recording if specified by the factory.
         if ($this->forceCustomId()) {
             $class = $this->entityManager->getClassMetadata(get_class($entity));
-            $class->setIdGenerator(new AssignedGenerator);
+            $class->setIdGenerator(new AssignedGenerator());
             $class->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
         }
 
@@ -158,6 +148,7 @@ abstract class EntityFactory
      * Make a new entity in memory without persisting it to the database.
      *
      * @param array $attributes
+     *
      * @return mixed
      */
     public function make($attributes = [])
@@ -170,12 +161,10 @@ abstract class EntityFactory
 
         // Hydrate the entity attributes.
         foreach ($this->attributes as $attribute => $value) {
-
             try {
-
                 // If we are setting the 'organization' value we will
                 // defer to the fluently recorded organization if present
-                if ($attribute == 'organization' && $this->organization) {
+                if ('organization' == $attribute && $this->organization) {
                     $this->propertyAccessor->setValue($instance, 'organization', $this->organization);
                 } else {
                     $this->propertyAccessor->setValue($instance, $attribute, $value);
@@ -191,10 +180,8 @@ abstract class EntityFactory
     /**
      * Instantiate a new Doctrine Entity, ensuring that the required constructor
      * parameters are in place. Inspired by:
-     * https://github.com/zenstruck/foundry/blob/master/src/Instantiator.php#L24
+     * https://github.com/zenstruck/foundry/blob/master/src/Instantiator.php#L24.
      *
-     * @param string $class
-     * @param array $attributes
      * @return mixed
      */
     protected function instantiate(string $class, array &$attributes): object
@@ -209,7 +196,6 @@ abstract class EntityFactory
         $arguments = [];
 
         foreach ($constructor->getParameters() as $parameter) {
-
             if (\array_key_exists($parameter, $attributes)) {
                 $arguments[] = $attributes[$parameter];
             } elseif ($parameter->isDefaultValueAvailable()) {
@@ -260,6 +246,7 @@ abstract class EntityFactory
      * simulating relationships.
      *
      * @param string $entity
+     *
      * @return \Eoa\Tests\Factory\EntityFactory
      */
     public function factory($entity)
