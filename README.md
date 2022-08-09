@@ -81,10 +81,12 @@ sudo bash -c "echo '127.0.0.1 symfony-starter.test' >> /etc/hosts"
 
 To customize this domain for your project you will need to update the configuration files in the `docker/apache` folder. (Use grep to find all the locations where the domain is referenced.) Note: After adjusting the configuration files you will need to stop the running services, rebuild the containers, and then restart the services before you will see those changes go into effect.
 
-Port 80 is the default used for web traffic. Your host machine can only have one program or service listening to port 80 at a time so attempting to spin up this development environment will fail if you have some other program on your machine using port 80. If you would like to spin up multiple applications on your host machine that will want to connect to each other you will need to assign each of them a different port number. This is done in the `docker-compose.yml` service definition. Under the 'ports' section you will see the definition '80:80'. The first is your host machine port and the second is the container port. To direct application web traffic to port 10000 you would specify it like this: '10000:80'. You can then access the running service at the same local domain as long as you add in the port number:
+Port 80 is the default used for web traffic. Your host machine can only have one program or service listening to port 80 at a time so attempting to spin up this development environment will fail if you have some other program on your machine using port 80. If you would like to spin up multiple applications on your host machine that will want to connect to each other you will need to assign each of them a different port number.
 
-```
-http://symfony-starter.test:10000
+```bash
+$ POSTGRES_PORT=65001 WEB_PORT=1000 docker-compose up -d
+
+# http://symfony-starter.test:10000
 ```
 
 This project does not yet ship with SSL enabled locally but that may be added in the future. You are, however, free to set this up in your own project.
