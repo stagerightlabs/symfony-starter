@@ -71,6 +71,8 @@ To install the node dependencies:
 docker-compose run --rm node npm install
 ```
 
+If you need to use an access token to fetch private dependencies from GitHub with Composer, copy the `auth.example.json` file contents to `auth.json` and add your token there. The `auth.json` file will not be tracked in git and will only be stored locally.
+
 ### Domain and Port Considerations
 
 The service architecture in this project ships with Apache to handle web traffic requests. By default it is set up to serve content on the `symfony-starter.test` domain. In order to access this site on your host machine you will need to update your hosts file:
